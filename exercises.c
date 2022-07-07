@@ -12,7 +12,8 @@ y en c almacena el valor de la suma de a más b.
 */
 
 void suma(int a, int b, int * c) {
-    
+
+    *c=a+b;
 }
 
 /*
@@ -37,7 +38,13 @@ Utilice la función sumaN.
 */
 
 void sumaNultimos(int a[], int n, int m, int * suma) {
+   int i;
+   *suma=0;
+   for(i = 0; i < n; i++) {
 
+      *suma += *(a+i);
+    }
+    *suma-=sumaN(a , n-m);
 }
 
 /*
@@ -55,7 +62,12 @@ typedef struct {
 
 
 Persona* crearPersona(char nombre[], char rut[], int edad) {
-   return NULL;
+   Persona *datosP;
+   datosP = (Persona*) malloc (sizeof(Persona));
+   strcpy(datosP->nombre,nombre);
+   strcpy(datosP->rut,rut);
+   datosP->edad=edad;
+   return datosP;
 }
 
 /*
@@ -72,7 +84,11 @@ typedef struct {
 } Vector;
 
 Vector * crearVector(int n) {
-   return NULL;
+   Vector *arreglo=NULL;
+   arreglo = (Vector*) malloc (sizeof(Vector));
+   arreglo->datos=(int *) calloc (sizeof(int),n);
+   arreglo->capacidad=n;
+   return arreglo;
 }
 
 /*
@@ -81,6 +97,7 @@ Programe la función void asignarValor(Vector * v, int i, int valor),
 la cual asigna el valor a la posición i del vector v.
 */
 void asignarValor(Vector * v, int i, int valor) {
+   v->datos[i]=valor;
 
 }
 
@@ -90,7 +107,7 @@ Programe la función int obtenerValor(Vector * v, int i),
 la cual retorna el valor en la posición i del vector v.
 */
 int obtenerValor(Vector * v, int i) {
-   return 0;
+   return v->datos[i];
 }
 
 /*
@@ -99,7 +116,12 @@ Función que suma los vectores `a` y `b` y
 actualiza el vector `c` con el resultado de la suma.
 */
 void sumaV(Vector * a, Vector * b, Vector * c) {
-
+   int Sum;
+   int i;
+    for(i = 0; i < a->capacidad; i++) {
+      Sum= a->datos[i] + b->datos[i];
+      c->datos[i]=Sum;
+    }
 }
 
 /*
@@ -108,5 +130,19 @@ Use las operaciones implementadas de vectores para
 sumar (a1,a2)+(b1+b2). Almacene el resultado en el vector c.
 */
 void sumaV2(int a1, int a2, int b1, int b2, Vector *c){
+   Vector arreglo1;
+   Vector arreglo2;
+   arreglo1=*crearVector(2);
+   arreglo2=*crearVector(2);
+   //void asignarValor(Vector * v, int i, int valor) {
+   
+   asignarValor(&arreglo1, 0, a1);
+   asignarValor(&arreglo1, 1, a2);
+   asignarValor(&arreglo2, 0, b1);
+   asignarValor(&arreglo2, 1, b2);
+
+   //void sumaV(Vector * a, Vector * b, Vector * c) {
+
+   sumaV(&arreglo1, &arreglo2, c);
 
 }
